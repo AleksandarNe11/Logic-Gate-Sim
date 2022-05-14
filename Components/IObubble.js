@@ -10,7 +10,7 @@ export class IObubble extends Graphics {
     constructor(num) { 
         super();
         
-        console.log(this);
+        // console.log(this);
     }
     
     static createInputBubble(inputIndex) { 
