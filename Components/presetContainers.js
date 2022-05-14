@@ -6,6 +6,8 @@ import { app } from '../app.js';
 // import { Graphics } from "../pixi.mjs";
 
 
+
+
 export class GateContainer { 
 
     constructor (app, name) { 

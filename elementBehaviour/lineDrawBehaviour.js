@@ -1,17 +1,31 @@
 import { Graphics } from "../pixi.mjs";
+import { EmitterSingleton } from "../EventHandler/EmitterSingleton.js";
 
 
 function enableLineDrawingBehaviour(app) { 
-    app.stage.interactive = true;
-
     let context = { 
         lines: [],
         initialMoveTo: [],
-        background: app.stage
+        background: app.stage,
+        eventEmitter: new EmitterSingleton().getEmitter(), 
+        isOnOutput: false, 
+        isOnInput: false,
+        lastOutput: undefined,
+        lastInput: undefined, 
     }
-
-    let initialMoveTo; 
-
+    context.eventEmitter
+        .on('hover-input', (input) => { 
+            context.isOnInput = true; 
+            context.lastInput = input})
+        .on('unhover-input', (input) => { context.isOnInput = false})
+        .on('hover-output', (output) => {
+            context.isOnOutput = true;
+            context.lastOutput = output;
+        })
+        .on('unhover-output', (output) => {context.isOnOutput = false});
+    
+    //background behaviour
+    context.background.interactive = true; 
     context.background
         .on('mousedown', (event) => {onDragStart(event, context)})
         .on('mousemove', (event) => {onDragMove(event, context)})
@@ -20,20 +34,23 @@ function enableLineDrawingBehaviour(app) {
 }
 
 function onDragStart(event, context) { 
-    context.background.isCreatingLine = true;
+    if (context.isOnOutput) { 
+        console.log("insideOfOnDragStart");
+        context.background.isCreatingLine = true;
 
-    let mouseX = event.data.global.x; 
-    let mouseY = event.data.global.y; 
-
-    context.initialMoveTo = [mouseX, mouseY]; 
-
-    let line = new Graphics();
-    line.lineStyle(1, 0x000000); 
-    line.moveTo(mouseX, mouseY); 
-
-    context.lines = [line].concat(line);
-
-    context.background.addChild(line);
+        let mouseX = event.data.global.x; 
+        let mouseY = event.data.global.y; 
+    
+        context.initialMoveTo = [mouseX, mouseY]; 
+    
+        let line = new Graphics();
+        line.lineStyle(6, 0x000000); 
+        line.moveTo(mouseX, mouseY); 
+    
+        context.lines = [line].concat(line);
+    
+        context.background.addChild(line);
+    }
 }
 
 function onDragMove(event, context) { 
@@ -48,6 +65,16 @@ function onDragMove(event, context) {
 }
 
 function onDragEnd(event, context) { 
+    if (!context.isOnInput) { 
+        if (context.lines[0])
+            context.lines[0].clear();
+    } else { 
+        // a bit of a hacky solution but this basically creates a fake line 
+        // to make sure that the line isn't cleared if it hits the correct 
+        // endpoint
+        let line = new Graphics();
+        context.lines = [line].concat(line);
+    }
     context.background.isCreatingLine = false;
 }
 

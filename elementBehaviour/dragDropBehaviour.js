@@ -1,27 +1,39 @@
 import { DisplayObject, InteractionEvent } from "../pixi.mjs";
+import { EmitterSingleton } from "../EventHandler/EmitterSingleton.js";
 import { Point } from "../pixi.mjs";
 
 function setDraggable(object, app) { 
     object.interactive = true; 
     object.buttonMode = true; 
 
+    let eventEmitter = new EmitterSingleton().getEmitter();
+    let onIO = false; 
+    eventEmitter
+        .on('hover-input', () => {onIO = true})
+        .on('unhover-input', () => {onIO = false})
+        .on('hover-output', () => {onIO = true})
+        .on('unhover-output', () => {onIO = false})
+
     object
-        .on('pointerdown', (event) => onDragStart(event, app))
+        .on('pointerdown', (event) => onDragStart(event, onIO))
         .on('pointerup', (event) => onDragEnd(event, app))
         .on('pointerupoutside', (event) => onDragEnd(event, app))
         .on('pointermove', (event) => onDragMove(event, app));
 }
 
-function onDragStart(intEvent, app) { 
-    const obj = intEvent.currentTarget;
+function onDragStart(intEvent, onIO) { 
+    if (!onIO) {
+        const obj = intEvent.currentTarget;
     
-    obj.dragData = intEvent.data; 
-    obj.dragging = 1; 
-    obj.dragPointerStart = intEvent.data.getLocalPosition(obj.parent)
-    obj.dragObjStart = new Point()
-    obj.dragObjStart.copyFrom(obj.position)
-    obj.dragGlobalStart = new Point()
-    obj.dragGlobalStart.copyFrom(intEvent.data.global)
+
+        obj.dragData = intEvent.data; 
+        obj.dragging = 1; 
+        obj.dragPointerStart = intEvent.data.getLocalPosition(obj.parent)
+        obj.dragObjStart = new Point()
+        obj.dragObjStart.copyFrom(obj.position)
+        obj.dragGlobalStart = new Point()
+        obj.dragGlobalStart.copyFrom(intEvent.data.global)
+    }
 }
 
 function onDragEnd(intEvent, app) {
