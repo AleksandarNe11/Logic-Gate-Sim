@@ -1,10 +1,13 @@
 import * as PIXI from '/pixi.mjs';
 import { Graphics } from './pixi.mjs';
 import { Add_Ticker } from './RenderLoop/ticker.js';
-import {  GateContainer, AndButtons , OrButtons } from './Components/presetContainers.js';
+import {  GateContainer, GateButtons , OrButtons } from './Components/presetContainers.js';
 import { enableLineDrawingBehaviour } from './elementBehaviour/lineDrawBehaviour.js';
 import { IObubble } from './Components/IObubble.js';
 
+
+//globals 
+let drawingLine = false;
 
 const Application = PIXI.Application; 
 
@@ -27,12 +30,17 @@ let iob = new IObubble();
 app.stage.addChild(iob);
 
 
+
+enableLineDrawingBehaviour(app)
+
 let ticker_instance = new Add_Ticker(app);
 let gate_container = new GateContainer(app, "AND");
 let new_container = new GateContainer(app, "NOR");
-let and_button = new AndButtons(app, "AND");
-let or_button = new OrButtons(app, "OR")
+let and_button = new GateButtons(app, "AND", 250, 373);
+let or_button = new OrButtons(app, "OR",350, 373)
 // enableLineDrawingBehaviour(app);
 
-
 document.body.appendChild(app.view);
+
+
+export {drawingLine}

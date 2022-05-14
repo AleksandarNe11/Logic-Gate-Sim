@@ -4,6 +4,8 @@ import { Text } from '../pixi.mjs';
 import { IObubble } from './IObubble.js';
 import { app } from '../app.js';
 
+
+
 export class GateContainer { 
 
     constructor (app, name) { 
@@ -52,15 +54,14 @@ export class GateContainer {
     }
 }
 
-export class AndButtons {
+export class GateButtons {
 
-    constructor (app, name) { 
+    constructor (app, name, x , y) { 
         this.container = new Container();
         this.app = app; 
-        this.createChildren(name)
-        // this.x = x;
-        // this.y = y;
-        // this.textPosition = textPosition;
+        this.x = x;
+        this.y = y;
+        this.createChildren(name);
     }
 
     createChildren(name) { 
@@ -69,7 +70,7 @@ export class AndButtons {
             this.generateRect()
         )
         this.container.addChild(
-            this.generateText(name)
+            this.generateText(name, this.x, this.y)
         )
         this.container.x = 200; 
         this.container.y = 200; 
@@ -89,10 +90,10 @@ export class AndButtons {
         return rect;
     }
 
-    generateText(name) { 
+    generateText(name, x, y) { 
         const text = new Text(name);
         text.anchor.set(0.5, 0.5);
-        text.position.set(250, 373);
+        text.position.set(x, y);
         return text;
     }
 
@@ -116,8 +117,8 @@ export class OrButtons {
         this.container.addChild(
             this.generateText(name)
         )
-        this.container.x = 200; 
-        this.container.y = 200; 
+        this.container.x = 800; 
+        this.container.y = 600; 
     }   
     
 
