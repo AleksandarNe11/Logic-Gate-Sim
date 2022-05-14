@@ -1,4 +1,6 @@
 import { Graphics } from "../pixi.mjs";
+import { enableLineDrawingBehaviour } from "../elementBehaviour/lineDrawBehaviour.js";
+import { app } from "../app.js";
 
 function createIObubble() { 
 
@@ -16,7 +18,12 @@ export class IObubble extends Graphics {
         input.beginFill(0x000000)
             .drawCircle(0, 50*(inputIndex) + 25, 15)
             .endFill(); 
-        input.type = "input"; 
+        input.type = "input";
+
+        // Adding event listener
+        input.interactive = true;
+        input.buttonMode = true;
+        input.on("click", drawLine) 
         return input; 
     }
 
@@ -28,4 +35,9 @@ export class IObubble extends Graphics {
         output.type = "output";   
         return output; 
     }
+}
+
+
+function drawLine(){
+    enableLineDrawingBehaviour(app)
 }
