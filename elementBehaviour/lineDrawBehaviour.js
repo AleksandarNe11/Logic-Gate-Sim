@@ -10,17 +10,19 @@ function enableLineDrawingBehaviour(app) {
         eventEmitter: new EmitterSingleton().getEmitter(), 
         isOnOutput: false, 
         isOnInput: false,
+        lastOutput: undefined,
+        lastInput: undefined, 
     }
     context.eventEmitter
         .on('hover-input', (input) => { 
             context.isOnInput = true; 
-            console.log(input);})
+            context.lastInput = input})
         .on('unhover-input', (input) => { context.isOnInput = false})
         .on('hover-output', (output) => {
             context.isOnOutput = true;
-            console.log(context);
+            context.lastOutput = output;
         })
-        .on('hover-output', (output) => {context.isOnOutput = false});
+        .on('unhover-output', (output) => {context.isOnOutput = false});
     
     //background behaviour
     context.background.interactive = true; 
@@ -33,6 +35,7 @@ function enableLineDrawingBehaviour(app) {
 
 function onDragStart(event, context) { 
     if (context.isOnOutput) { 
+        console.log("insideOfOnDragStart");
         context.background.isCreatingLine = true;
 
         let mouseX = event.data.global.x; 
@@ -63,7 +66,14 @@ function onDragMove(event, context) {
 
 function onDragEnd(event, context) { 
     if (!context.isOnInput) { 
-        context.lines[0].clear();
+        if (context.lines[0])
+            context.lines[0].clear();
+    } else { 
+        // a bit of a hacky solution but this basically creates a fake line 
+        // to make sure that the line isn't cleared if it hits the correct 
+        // endpoint
+        let line = new Graphics();
+        context.lines = [line].concat(line);
     }
     context.background.isCreatingLine = false;
 }
