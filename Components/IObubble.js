@@ -7,6 +7,7 @@ import { drawingLine } from "../app.js";
 export class IObubble extends Graphics { 
     constructor(num) { 
         super();
+        this.index = num;
         this.em = new EmitterSingleton().getEmitter();
     }
     
@@ -24,10 +25,11 @@ export class IObubble extends Graphics {
         input.on('mouseover', (mouseData) => { 
             input.alpha = 0.5; 
             input.em.emit('hover-input', input)
+            console.log(input);
         });
         input.on('mouseout', (mouseData) => { 
             input.alpha = 1; 
-            input.em.emit('unhover-output', input)
+            input.em.emit('unhover-input', input)
         });
 
 
