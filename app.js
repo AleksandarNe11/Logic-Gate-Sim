@@ -3,6 +3,7 @@ import { Graphics } from './pixi.mjs';
 import { Add_Ticker } from './src/RenderLoop/ticker.js';
 import {  AndButton, OrButton, NotButton, Controlbar, line, CreateButton } from './src/Components/presetContainers.js';
 import { enableLineDrawingBehaviour } from './src/elementBehaviour/lineDrawBehaviour.js';
+import * as gates from "./LogicElements/gates.js";
 
 //globals 
 let drawingLine = false;
@@ -49,7 +50,30 @@ document.body.appendChild(app.view);
 
 
 // testing section
+let chipInput1 = new gates.StartingInput([]);
+let chipInput2 = new gates.StartingInput([]);
 
+let and1input1 = new gates.Input([], []);
+and1input1.addInput(chipInput1);
+let and1input2 = new gates.Input([], []);
+and1input2.addInput(chipInput2);
+let and1 = new gates.ANDOutput([], []);
+and1.addInput(and1input1);
+and1.addInput(and1input2);
+
+let chipOutput = new gates.ChipOutput([], [], "OutputChip"); 
+chipOutput.addInput(and1);
+
+chipInput1.activate();
+console.log(and1);
+console.log(chipOutput);
+chipInput2.activate();
+console.log(and1);
+console.log(chipOutput);
+
+// let and2input1 = new gates.Input([]);
+// let and2input2 = new gates.Input([]);
+// let and2 = new gates.ANDOutput([and2input1, and2input2], []);
 
 
 export {drawingLine}

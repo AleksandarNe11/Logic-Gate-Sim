@@ -5,4 +5,3 @@ B) References to each object within itself
 Think of the functions 
     1) connect nodes together (outPuts To)
     2) check if inputs are active -- see if should be outputting something
-    3) 
