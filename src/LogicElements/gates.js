@@ -50,7 +50,7 @@ export class IONode {
                 output.inputActivated(input);
             } 
 
-        }, 200)
+        }, 200);
     }
 
     outputInactive(index) { 
@@ -70,12 +70,12 @@ export class IONode {
 }
 
 export class ANDOutput extends IONode { 
-    constructor(inputNodes, outputNodes, name="AND") { 
-        super(name, inputNodes, outputNodes);
+    constructor(inputs, outputs, name="AND") { 
+        super(name, inputs, outputs);
     }
 
     isActive() { 
-        if (this.inputNodes.length != 2 && this.outputNodes.length != 1) {
+        if (this.inputs.length != 2 && this.outputs.length != 1) {
             console.log(this);
             throw ("Incorrect number of nodes in ANDOutput object");
         }
@@ -87,29 +87,30 @@ export class ANDOutput extends IONode {
 }
 
 export class OROutput extends IONode { 
-    constructor(inputNodes, outputNodes, name="AND") { 
-        super(name, inputNodes, outputNodes);
+    constructor(inputs, outputs, name="AND") { 
+        super(name, inputs, outputs);
     }
 
     isActive() { 
-        if (this.inputNodes.length != 2 && this.outputNodes.length != 1) {
+        if (this.inputs.length != 2 && this.outputs.length != 1) {
             console.log(this);
             throw ("Incorrect number of nodes in ANDOutput object");
         }
-        if (this.inputs[0].isActive() && this.inputs[1].isActive) 
+        if (this.inputs[0].isActive() || this.inputs[1].isActive) 
             return true;
         
         return false; 
     }
 }
 
+// TODO: Fix this class
 export class NOTOutput extends IONode { 
-    constructor(inputNodes, outputNodes, name="NOT") { 
-        super(name, inputNodes, outputNodes);
+    constructor(inputs, outputs, name="NOT") { 
+        super(name, inputs, outputs);
     }
 
     isActive() { 
-        if (this.inputNodes.length != 1 && this.outputNodes.length != 1) {
+        if (this.inputs.length != 1 && this.outpuoutputstNodes.length != 1) {
             console.log(this);
             throw ("Incorrect number of nodes in NOTOutput object");
         }
@@ -133,10 +134,10 @@ export class Input extends IONode {
 
     inputActivated() { 
         this.activeInputs++; 
-        if (this.activeInputs == 1) { 
+        if (this.activeInputs === 1) { 
             this.active = true; 
             let input = this;
-            for (let output in this.outputNodes) { 
+            for (let output of this.outputs) { 
                 output.inputActivated(input);
             }
         }
@@ -144,10 +145,10 @@ export class Input extends IONode {
 
     inputDeactivated() { 
         this.activeInputs--; 
-        if (this.activeInputs == 0) { 
+        if (this.activeInputs === 0) { 
             this.active = false; 
             let input = this;
-            for (let output in this.outputNodes) { 
+            for (let output of this.outputs) { 
                 output.inputDeactivated(input);
             }
         }
