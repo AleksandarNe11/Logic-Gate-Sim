@@ -3,7 +3,6 @@ import { Graphics } from './pixi.mjs';
 import { Add_Ticker } from './src/RenderLoop/ticker.js';
 import {  GateButtons, Controlbar, line, CreateButton } from './src/Components/presetContainers.js';
 import { enableLineDrawingBehaviour } from './src/elementBehaviour/lineDrawBehaviour.js';
-import { IObubble } from './src/Components/IObubble.js';
 
 //globals 
 let drawingLine = false;
@@ -25,10 +24,6 @@ background
 background.interactive = true; 
 app.stage.addChild(background);
 
-let iob = new IObubble();
-app.stage.addChild(iob);
-
-
 
 enableLineDrawingBehaviour(app)
 
@@ -44,8 +39,8 @@ let output_bar = new Controlbar(app, "Output", window.innerWidth - 90, 35, windo
 
 
 // lines
-let input_line = new line(app, -50, -130)
-let output_line = new line(app, 1010, -130)
+let input_line = new line(app, -50, -130);
+let output_line = new line(app, 1010, -130);
 
 
 // Buttons
@@ -58,7 +53,6 @@ document.body.appendChild(app.view);
 
 
 // testing section
-
 
 
 

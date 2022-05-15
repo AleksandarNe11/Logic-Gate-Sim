@@ -32,7 +32,6 @@ export class IObubble extends Graphics {
             input.em.emit('unhover-input', input)
         });
 
-
         return input; 
     }
 

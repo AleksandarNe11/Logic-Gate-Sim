@@ -165,9 +165,9 @@ export class line {
             this.generateRect(this.lineX, this.lineY)
         )
         
-        this.container.addChild(
-            inputCircles.createInputBubble(0)
-        )
+        // this.container.addChild(
+        //     inputCircles.createInputBubble(0)
+        // )
         this.container.x = 200; 
         this.container.y = 200; 
     }   
