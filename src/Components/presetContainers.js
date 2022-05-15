@@ -6,7 +6,7 @@ import { app } from '../../app.js';
 // import { Graphics } from "../pixi.mjs";
 
 
-
+let totalButtons = 3;
 
 export class GateContainer { 
 
@@ -56,7 +56,7 @@ export class GateContainer {
     }
 }
 
-export class GateButtons {
+export class AndButton {
 
     constructor (app, name, rectX, rectY, textX, textY) { 
         this.container = new Container();
@@ -90,7 +90,7 @@ export class GateButtons {
         // Added Event 
         rect.interactive = true;
         rect.buttonMode = true;
-        rect.on("click", createGate);
+        rect.on("click", createAndGate);
 
         return rect;
     }
@@ -103,6 +103,100 @@ export class GateButtons {
     }
 }
 
+export class OrButton {
+
+    constructor (app, name, rectX, rectY, textX, textY) { 
+        this.container = new Container();
+        this.app = app; 
+        this.textX = textX;
+        this.textY = textY;
+        this.rectX = rectX;
+        this.rectY = rectY;
+        this.createChildren(name)
+    }
+
+    createChildren(name) { 
+        this.app.stage.addChild(this.container);
+        this.container.addChild(
+            this.generateRect(this.rectX, this.rectY)
+        )
+        this.container.addChild(
+            this.generateText(name, this.textX, this.textY)
+        )
+        this.container.x = 200; 
+        this.container.y = 200; 
+    }   
+    
+    generateRect(rectX, rectY){
+        const rect = new Graphics();
+        rect.beginFill(0xAA33BB)
+        .lineStyle(4, 0x000000, 1)
+        .drawRect(rectX, rectY, 100, 50)
+        .endFill();
+        
+        // Added Event 
+        rect.interactive = true;
+        rect.buttonMode = true;
+        rect.on("click", createOrGate);
+
+        return rect;
+    }
+
+    generateText(name, textX, textY) { 
+        const text = new Text(name);
+        text.anchor.set(0.5, 0.5);
+        text.position.set(textX, textY);
+        return text;
+    }
+}
+
+
+export class NotButton {
+
+    constructor (app, name, rectX, rectY, textX, textY) { 
+        this.container = new Container();
+        this.app = app; 
+        this.textX = textX;
+        this.textY = textY;
+        this.rectX = rectX;
+        this.rectY = rectY;
+        this.createChildren(name)
+    }
+
+    createChildren(name) { 
+        this.app.stage.addChild(this.container);
+        this.container.addChild(
+            this.generateRect(this.rectX, this.rectY)
+        )
+        this.container.addChild(
+            this.generateText(name, this.textX, this.textY)
+        )
+        this.container.x = 200; 
+        this.container.y = 200; 
+    }   
+    
+    generateRect(rectX, rectY){
+        const rect = new Graphics();
+        rect.beginFill(0xAA33BB)
+        .lineStyle(4, 0x000000, 1)
+        .drawRect(rectX, rectY, 100, 50)
+        .endFill();
+        
+        // Added Event 
+        rect.interactive = true;
+        rect.buttonMode = true;
+        rect.on("click", createNotGate);
+
+        return rect;
+    }
+
+    generateText(name, textX, textY) { 
+        const text = new Text(name);
+        text.anchor.set(0.5, 0.5);
+        text.position.set(textX, textY);
+        return text;
+    }
+}
 
 export class Controlbar {
 
@@ -134,6 +228,12 @@ export class Controlbar {
         .lineStyle(4, 0x000000, 1)
         .drawRect(rectX, rectY, 90, 34)  // 0 , 35
         .endFill();
+
+        // Added Event 
+        rect.interactive = true;
+        rect.buttonMode = true;
+        rect.on("click", createInput);
+
 
         return rect;
     }
@@ -252,25 +352,86 @@ export class inputCircles extends Graphics{
 
 }
 
+export class userSavedButton {
+
+    constructor (app, name, rectX, rectY, textX, textY) { 
+        this.container = new Container();
+        this.app = app; 
+        this.textX = textX;
+        this.textY = textY;
+        this.rectX = rectX;
+        this.rectY = rectY;
+        this.createChildren(name)
+    }
+
+    createChildren(name) { 
+        this.app.stage.addChild(this.container);
+        this.container.addChild(
+            this.generateRect(this.rectX, this.rectY)
+        )
+        this.container.addChild(
+            this.generateText(name, this.textX, this.textY)
+        )
+        this.container.x = 200; 
+        this.container.y = 200; 
+    } 
+    
+    generateRect(rectX, rectY){
+        const rect = new Graphics();
+        rect.beginFill(0xAA33BB)
+        .lineStyle(4, 0x000000, 1)
+        .drawRect((100*totalButtons)+(20*(totalButtons-1)), 350, 100, 50)  // 460, 350
+        .endFill();
+        console.log(totalButtons);
+        
+        // Added Event 
+        rect.interactive = true;
+        rect.buttonMode = true;
+        // rect.on("click", createNewGate);
+
+        return rect;
+    }
+
+    generateText(name, textX, textY) { 
+        const text = new Text(name);
+        text.anchor.set(0.5, 0.5);
+        text.position.set((100*totalButtons)+(20*(totalButtons-1)) + 50, 375);
+        return text;
+    }
+}
 
 
 
-
-
-
-
-
-
-function createGate (name) {
-    let new_gate = new GateContainer(app, name);
+function createAndGate () {
+    let newAndGates = new GateContainer(app, "AND");
     console.log("New gate created");
 }
+
+function createOrGate () {
+    let newOrGate = new GateContainer(app, "OR");
+    console.log("New gate created");
+}
+
+function createNotGate () {
+    let newNotGate = new GateContainer(app, "NOT");
+    console.log("New gate created");
+}
+
 
 export let chipName;
 
 function create() {
     chipName = prompt("What is the name of this chip??");
+    totalButtons = totalButtons + 1; 
+    let new_gate = new userSavedButton(app, chipName);
+    console.log(totalButtons);
     console.log(chipName);
+}
+
+
+function createInput () {
+    let input = new inputCircles.createInputBubble(0);
+    console.log("Clicked");
 }
 
 
