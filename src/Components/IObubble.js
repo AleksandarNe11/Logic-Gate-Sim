@@ -11,10 +11,10 @@ export class IObubble extends Graphics {
         this.em = new EmitterSingleton().getEmitter();
     }
     
-    static createInputBubble(inputIndex, xcoord=0, ysep = 50) { 
+    static createInputBubble(inputIndex, xcoord=0, ysep = 50, yoffset = 25) { 
         let input = new IObubble(inputIndex);
         input.beginFill(0x000000)
-            .drawCircle(0, ysep*(inputIndex) + 25, 15)
+            .drawCircle(0, ysep*(inputIndex) + yoffset, 15)
             .endFill(); 
         input.type = "input";
 
@@ -57,12 +57,11 @@ export class IObubble extends Graphics {
         return output; 
     }
 
-    static changeColor(bubble){
-        let input = bubble;
-        if(input.beginFill === 0x000000){
-            input.beginFill = 0xFF0000
-        } else{
-            input.beginFill = 0x000000
+    changeColor(){
+        if(this.tint !== 0xFF0000){
+            this.tint = 0xFF0000
+        } else {
+            this.tint = 0x000000
         }
     }
 }

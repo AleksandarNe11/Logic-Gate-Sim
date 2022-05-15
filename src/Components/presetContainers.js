@@ -86,7 +86,7 @@ export class AndButton {
     
     generateRect(rectX, rectY){
         const rect = new Graphics();
-        rect.beginFill(0xAA33BB)
+        rect.beginFill(0x83a0a1)
         .lineStyle(4, 0x000000, 1)
         .drawRect(0, 0, 100, 50)
         .endFill();
@@ -131,7 +131,7 @@ export class OrButton {
     
     generateRect(rectX, rectY){
         const rect = new Graphics();
-        rect.beginFill(0xAA33BB)
+        rect.beginFill(0x83a0a1)
         .lineStyle(4, 0x000000, 1)
         .drawRect(0, 0, 100, 50)
         .endFill();
@@ -177,7 +177,7 @@ export class NotButton {
     
     generateRect(rectX, rectY){
         const rect = new Graphics();
-        rect.beginFill(0xAA33BB)
+        rect.beginFill(0x83a0a1)
         .lineStyle(4, 0x000000, 1)
         .drawRect(0, 0, 100, 50)
         .endFill();
@@ -226,7 +226,7 @@ export class ControlBar {
 
     generateRect(rectX, rectY) {
         const rect = new Graphics();
-        rect.beginFill(0xAA33BB)
+        rect.beginFill(0x94badc)
         .lineStyle(4, 0x000000, 1)
         .drawRect(0, 0, 100, 50)  // 0 , 35
         .endFill();
@@ -234,11 +234,7 @@ export class ControlBar {
         // Added Event 
         rect.interactive = true;
         rect.buttonMode = true;
-        rect.on('mouseover', () => { 
-            console.log("test")
-        });
         let line = this.line; 
-        console.log(line);
         if (this.name === "Add")
             rect.on("click", () => { 
                 line.addBubble()
@@ -300,7 +296,7 @@ export class line {
             let input = IObubble.createOutputBubble(this.bubbles.length, 0, 200);
             this.container.addChild(input);
             this.bubbles.push(input);
-            input.node = new gates
+            input.node = new gates.StartingInput([]);
         } else { 
             let output = IObubble.createInputBubble(this.bubbles.length, 0, 200);
             this.container.addChild(output)
@@ -418,7 +414,6 @@ export class userSavedButton {
 
 
         .endFill();
-        console.log("In the button" + totalButtons);
         
         // Added Event 
         rect.interactive = true;
@@ -439,17 +434,14 @@ export class userSavedButton {
 
 function createAndGate () {
     let newAndGates = new GateContainer(app, "AND", 2, 1);
-    console.log("New gate created");
 }
 
 function createOrGate () {
     let newOrGate = new GateContainer(app, "OR", 2, 1);
-    console.log("New gate created");
 }
 
 function createNotGate () {
     let newNotGate = new GateContainer(app, "NOT", 1, 1);
-    console.log("New gate created");
 }
 
 
@@ -459,21 +451,9 @@ function create() {
     chipName = prompt("What is the name of this chip??");
     totalButtons = totalButtons + 1; 
     let new_gate = new userSavedButton(app, chipName, (totalButtons+1)*100 + (totalButtons-1)*20, window.innerHeight*.9);
-    console.log(totalButtons);
-    console.log(chipName);
 }
 
 function createNewGate(){
-    console.log("Button being used")
+    
 }
-
-
-
-
-
-
-
-
-
-
 

@@ -14,6 +14,8 @@ export const app = new Application({
     width: 500, 
     height: 500, 
     backgroundColor: 0x2c3e50
+    // backg
+
 });
 app.renderer.resize(window.innerWidth, window.innerHeight);
 
@@ -36,7 +38,6 @@ let b = (12.5 / 100) * window.innerHeight;
 
 
 // lines
-let input_line = new line(app, -50, -130);
 let input_line = new line(app, a , b, "input");
 let output_line = new line(app, window.innerWidth - a, b, "output");
 

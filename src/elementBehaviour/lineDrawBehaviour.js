@@ -12,6 +12,8 @@ function enableLineDrawingBehaviour(app) {
         isOnInput: false,
         lastOutput: undefined,
         lastInput: undefined, 
+        dragStartOutput: undefined,
+        dragEndInput: undefined, 
     }
     context.eventEmitter
         .on('hover-input', (input) => { 
@@ -29,13 +31,13 @@ function enableLineDrawingBehaviour(app) {
     context.background
         .on('mousedown', (event) => {onDragStart(event, context)})
         .on('mousemove', (event) => {onDragMove(event, context)})
-        .on('mouseup', (event) => {onDragEnd(event, context)})
+        .on('mouseup', (event) => {onDragEnd(event, context)});
     
 }
 
 function onDragStart(event, context) { 
     if (context.isOnOutput) { 
-        console.log("insideOfOnDragStart");
+        context.dragStartOutput = context.lastOutput;
         context.background.isCreatingLine = true;
 
         let mouseX = event.data.global.x; 
@@ -72,10 +74,16 @@ function onDragEnd(event, context) {
         // a bit of a hacky solution but this basically creates a fake line 
         // to make sure that the line isn't cleared if it hits the correct 
         // endpoint
+        
+
         let line = new Graphics();
         context.lines = [line].concat(line);
     }
     context.background.isCreatingLine = false;
+    if (context.isOnOutput && context.lastOutput === context.dragStartOutput) { 
+        console.log(context.lastOutput);
+        context.lastOutput.changeColor();
+    }
 }
 
 export {enableLineDrawingBehaviour}
