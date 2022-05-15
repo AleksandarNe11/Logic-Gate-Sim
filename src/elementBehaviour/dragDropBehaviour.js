@@ -1,6 +1,6 @@
-import { DisplayObject, InteractionEvent } from "../pixi.mjs";
+import { DisplayObject, InteractionEvent } from "../../pixi.mjs";
 import { EmitterSingleton } from "../EventHandler/EmitterSingleton.js";
-import { Point } from "../pixi.mjs";
+import { Point } from "../../pixi.mjs";
 
 function setDraggable(object, app) { 
     object.interactive = true; 

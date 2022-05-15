@@ -1,4 +1,4 @@
-import { utils } from '../pixi.mjs';
+import { utils } from '../../pixi.mjs';
 
 export class EmitterSingleton { 
 

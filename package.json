@@ -1,0 +1,31 @@
+{
+  "name": "logic-gate-sim",
+  "version": "1.0.0",
+  "description": "simulating logic gates",
+  "main": "app.js",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.1",
+    "immer": "^9.0.14",
+    "redux": "^4.2.0",
+    "valtio": "^1.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AleksandarNe11/Logic-Gate-Sim.git"
+  },
+  "keywords": [
+    "best",
+    "project",
+    "ever"
+  ],
+  "author": "Aleksandar Neceski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AleksandarNe11/Logic-Gate-Sim/issues"
+  },
+  "homepage": "https://github.com/AleksandarNe11/Logic-Gate-Sim#readme"
+}

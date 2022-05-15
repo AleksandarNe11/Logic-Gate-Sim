@@ -1,4 +1,4 @@
-import { Graphics } from "../pixi.mjs";
+import { Graphics } from "../../pixi.mjs";
 import { EmitterSingleton } from "../EventHandler/EmitterSingleton.js";
 
 

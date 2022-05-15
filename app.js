@@ -1,10 +1,9 @@
 import * as PIXI from '/pixi.mjs';
 import { Graphics } from './pixi.mjs';
-import { Add_Ticker } from './RenderLoop/ticker.js';
-import {  GateButtons, Controlbar, line, CreateButton } from './Components/presetContainers.js';
-import { enableLineDrawingBehaviour } from './elementBehaviour/lineDrawBehaviour.js';
-import { IObubble } from './Components/IObubble.js';
-
+import { Add_Ticker } from './src/RenderLoop/ticker.js';
+import {  GateButtons, Controlbar, line, CreateButton } from './src/Components/presetContainers.js';
+import { enableLineDrawingBehaviour } from './src/elementBehaviour/lineDrawBehaviour.js';
+import { IObubble } from './src/Components/IObubble.js';
 
 //globals 
 let drawingLine = false;
@@ -56,6 +55,11 @@ let or_button = new GateButtons(app, "OR", 220, 350, 270, 375);
 let not_button = new GateButtons(app, "NOT", 340, 350, 390, 375);
 
 document.body.appendChild(app.view);
+
+
+// testing section
+
+
 
 
 export {drawingLine}

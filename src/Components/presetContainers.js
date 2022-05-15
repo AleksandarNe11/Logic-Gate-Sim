@@ -1,8 +1,8 @@
-import { Application, Container, Graphics } from '../pixi.mjs'
+import { Application, Container, Graphics } from '../../pixi.mjs'
 import { setDraggable } from '../elementBehaviour/dragDropBehaviour.js';
-import { Text } from '../pixi.mjs';
+import { Text } from '../../pixi.mjs';
 import { IObubble } from './IObubble.js';
-import { app } from '../app.js';
+import { app } from '../../app.js';
 // import { Graphics } from "../pixi.mjs";
 
 

@@ -1,8 +1,8 @@
-import { Graphics } from "../pixi.mjs";
+import { Graphics } from "../../pixi.mjs";
 import { enableLineDrawingBehaviour } from "../elementBehaviour/lineDrawBehaviour.js";
-import { app } from "../app.js";
+import { app } from "../../app.js";
 import { EmitterSingleton } from "../EventHandler/EmitterSingleton.js";
-import { drawingLine } from "../app.js";
+import { drawingLine } from "../../app.js";
 
 export class IObubble extends Graphics { 
     constructor(num) { 
